@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Flight Booking</title>
+  <style>
+    /* Reset and base styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif, sans-serif;
+      background-color: #f2f2f2;
+      color: #333;
+    }
+
+    header {
+      background-color: #004080;
+      color: #fff;
+      padding: 20px;
+display: flex;
+justify-content: center;
+    }
+    .headul{
+      display: flex;
+      margin-left: 0px;
+      align-items: center;
+      justify-content: center;
+    }
+    .headul li{
+      margin-left: 30px;
+      font-size: 20px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    .headul li:hover{
+      text-decoration: underline;
+      text-decoration-color: red;
+    }
+    .loginbt{
+      display: flex;
+      position: absolute;
+      right: 5px;
+      top: 0;
+      padding: 5px 10px;
+      color: black;
+      background-color: white;
+      border-radius: 20px;
+      font-weight: bold;
+      margin-top: 28px;
+      transition: 0.5s;
+      border: 0px;
+    }
+    .loginbt:hover{
+      cursor: pointer;
+      color: white;
+      background-color: black;
+    }
+
+    header h1 {
+      margin-bottom: 10px;
+      left: 25px;
+      position: absolute;
+      display: flex;
+      user-select: none;
+    }
+
+    nav {
+      margin-top: 10px;
+    }
+
+    nav a {
+      color: #fff;
+      margin: 0 10px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    nav a:hover {
+      text-decoration: underline;
+    }
+
+    .search-section {
+      background-image: url("https://content.r9cdn.net/rimg/dimg/a9/b2/ca54450a-city-7297-164a3add188.jpg?width=1366&height=768&xhint=2449&yhint=1156&crop=true");
+      background-size: cover;
+      padding: 40px 20px;
+      text-align: center;
+    }
+
+    .search-section h2 {
+      margin-bottom: 20px;
+      color: white;
+    }
+    .search-section p{
+      color: white;
+    }
+
+    .search-form {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 15px;
+    }
+
+    .search-form input,
+    .search-form select,
+    .search-form button {
+      padding: 10px;
+      font-size: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 25px;
+    }
+
+    .search-form button {
+      background-color: #004080;
+      color: #fff;
+      border: none;
+      cursor: pointer;
+    }
+
+    .search-form button:hover {
+      background-color: #003366;
+    }
+
+    .destinations {
+      padding: 40px 20px;
+      text-align: center;
+    }
+
+    .destinations h2 {
+      margin-bottom: 30px;
+    }
+
+    .destination-cards {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+    }
+
+    .card {
+      background-color: #fff;
+      border-radius: 10px;
+      overflow: hidden;
+      width: 250px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      transition: transform 0.3s;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+    }
+
+    .card img {
+      width: 100%;
+      height: 150px;
+      object-fit: cover;
+    }
+
+    .card h3 {
+      padding: 15px 10px 5px;
+    }
+
+    .card p {
+      padding: 0 10px 15px;
+      font-size: 0.9rem;
+      color: #666;
+    }
+
+    footer {
+      background-color: #004080;
+      color: #fff;
+      text-align: center;
+      padding: 20px;
+      margin-top: 40px;
+    }
+
+    /* Modal styles for Login/Register */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 999;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0,0,0,0.6);
+    }
+
+    .modal-content {
+      background-color: #fff;
+      margin: 10% auto;
+      padding: 20px;
+      border-radius: 10px;
+      width: 90%;
+      max-width: 400px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    }
+
+    .modal-content h2 {
+      margin-bottom: 15px;
+    }
+
+    .modal-content input {
+      width: 100%;
+      padding: 10px;
+      margin: 8px 0;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+
+    .modal-content button {
+      width: 100%;
+      padding: 10px;
+      background-color: #004080;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .modal-content button:hover {
+      background-color: #003366;
+    }
+
+    .close {
+      float: right;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: #aaa;
+    }
+
+    .close:hover {
+      color: #000;
+    }
+
+    @media (max-width: 600px) {
+      .search-form {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .destination-cards {
+        flex-direction: column;
+        align-items: center;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Flight Booking</h1>
+    <nav>
+      <ul type="none" class="headul">
+        <li>Book</li>
+        <li>Trips</li>
+        <li>Offers</li>
+        <li>Flights</li>
+        <li>Destination</li>
+      </ul>
+      <button id="Modal" class="loginbt">Login/Signup</button>
+    </nav>
+  </header>
+
+  <section class="search-section">
+    <h2>Search for Flights</h2>
+    <form class="search-form">
+      <p class="ft">From: <input type="date" required /></p>
+      <p class="ft">To: <input type="date" required /></p>
+      <select required>
+        <option value="">Passengers</option>
+        <option value="1">1 Adult</option>
+        <option value="2">2 Adults</option>
+        <option value="3">3 Adults</option>
+      </select>
+      <button type="submit">Search</button>
+    </form>
+  </section>
+
+  <section class="destinations">
+    <h2>Popular Destinations</h2>
+    <div class="destination-cards">
+      <div class="card">
+        <img src="https://media.timeout.com/images/106251733/750/562/image.jpg" alt="Paris">
+        <h3>Paris</h3>
+        <p>Experience the City of Lights with its rich history and culture.</p>
+      </div>
+      <div class="card">
+        <img src="https://i.natgeofe.com/k/5b396b5e-59e7-43a6-9448-708125549aa1/new-york-statue-of-liberty.jpg" alt="New York">
+        <h3>New York</h3>
+        <p>Discover the bustling life of the Big Apple.</p>
+      </div>
+      <div class="card">
+        <img src="https://media.cntraveler.com/photos/678166b8a51cc7c3458df25a/16:9/w_5920,h_3330,c_limit/pexels-Aleksandar%20Pasaric-2506923.jpg" alt="Tokyo">
+        <h3>Tokyo</h3>
+        <p>Explore the vibrant blend of tradition and modernity.</p>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>&copy; 2025 Flight Booking. All rights reserved.</p>
+  </footer>
+
+  <!-- Login Modal -->
+  <div id="loginModal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="document.getElementById('loginModal').style.display='none'">&times;</span>
+      <h2>Login</h2>
+      <input type="email" placeholder="Email" required />
+      <input type="password" placeholder="Password" required />
+      <button type="submit">Login</button>
+    </div>
+  </div>
+
+  <!-- Register Modal -->
+  <div id="registerModal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="document.getElementById('registerModal').style.display='none'">&times;</span>
+      <h2>Register</h2>
+      <input type="text" placeholder="Full Name" required />
+      <input type="email" placeholder="Email" required />
+      <input type="password" placeholder="Password" required />
+      <button type="submit">Register</button>
+    </div>
+  </div>
+
+  <script>
+    // Close modal when clicking outside
+    window.onclick = function(event) {
+      const login = document.getElementById('loginModal');
+      const register = document.getElementById('registerModal');
+      if (event.target === login) login.style.display = "none";
+      if (event.target === register) register.style.display = "none";
+    }
+  </script>
+
+</body>
+</html>
